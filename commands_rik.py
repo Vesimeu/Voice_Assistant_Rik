@@ -5,7 +5,7 @@ from words import get_random_response, get_random_execution_response
 import webbrowser
 import threading
 import queue
-import time
+import sys
 
 
 
@@ -26,7 +26,11 @@ def speak():
 
 def handle_command(command):
     engine = pyttsx3.init()
-    if command.lower() == "открой браузер":
+    if command == "стоп команда":
+        print("Завершение работы.")
+        engine.say("Ветер в парус, тебе повезёт. ")
+        sys.exit()  # Завершение программы
+    elif command.lower() == "открой браузер":
         response = open_browser()
     elif command.lower() == "неизвестная команда":
         response = "Извини, я не понял команду."

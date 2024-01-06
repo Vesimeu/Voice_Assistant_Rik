@@ -72,11 +72,13 @@ def main():
         while True:
             command = get_command()
             if command:
+                if command == "стоп команда":  # Проверка на стоп-команду
+                    print("Завершение работы.")
+                    break
                 handle_command(command)  # Обработка команды
             else:
                 print("Команда не распознана или отсутствует")
                 continue  # Переход к следующему циклу прослушивания
-
 def get_command():
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
@@ -87,9 +89,11 @@ def get_command():
         try:
             command_text = recognizer.recognize_google(audio, language="ru-RU").lower()
             print(f"Распознанная команда: {command_text}")
+            if any(cmd in command_text for cmd in termination_commands):  # Проверка стоп-команд
+                return "стоп команда"
             for command, phrases in command_phrases.items():
                 if any(phrase in command_text for phrase in phrases):
-                    return command  # Возвращаем ключ команды
+                    return command
             return "неизвестная команда"
         except sr.UnknownValueError:
             print("Не удалось распознать речь")
@@ -97,6 +101,7 @@ def get_command():
         except sr.RequestError:
             print("Не удалось подключиться к сервису Google Speech Recognition")
             return None
+
 
 if __name__ == "__main__":
     main()
