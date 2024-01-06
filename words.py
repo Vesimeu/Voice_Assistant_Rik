@@ -29,6 +29,15 @@ execution_responses = [
     "Так уж и быть",
 ]
 
+# Пути к приветственным аудиофайлам
+rick_greetings = [
+    "value/greeting1.mp3",
+    "value/greeting2.mp3",
+    "value/greeting3.mp3"
+    # Добавьте пути к другим аудиофайлам здесь
+]
+
+
 # Фразы для завершения работы
 termination_commands = ["на этом всё", "больше ничего", "нет, это всё"]
 

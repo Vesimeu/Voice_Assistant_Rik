@@ -1,4 +1,6 @@
 # commands_rik.py
+import time
+
 from words import get_random_response
 import pyttsx3
 from words import get_random_response, get_random_execution_response
@@ -28,7 +30,6 @@ def handle_command(command):
     engine = pyttsx3.init()
     if command == "стоп команда":
         print("Завершение работы.")
-        engine.say("Ветер в парус, тебе повезёт. ")
         sys.exit()  # Завершение программы
     elif command.lower() == "открой браузер":
         response = open_browser()

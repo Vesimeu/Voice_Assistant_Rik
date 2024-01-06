@@ -9,6 +9,9 @@ from PIL import Image, ImageTk
 from words import activation_words
 from words import additional_command_request, termination_commands
 from words import command_phrases
+from playsound import playsound
+import random
+from words import rick_greetings  # Импортируем список приветствий
 
 
 def show_image():
@@ -52,6 +55,8 @@ def listen_for_activation():
             text = recognizer.recognize_google(audio, language="ru-RU").lower()
             print(f"Распознано: {text}")
             if any(word.lower() in text for word in activation_words):
+                greeting = random.choice(rick_greetings)  # Выбор случайного приветствия
+                playsound(greeting, block=False)  # Неблокирующее воспроизведение приветствия
                 return True
         except sr.UnknownValueError:
             print("Не удалось распознать речь")
@@ -64,14 +69,13 @@ def main():
         image_thread = threading.Thread(target=show_image, daemon=True)
         image_thread.start()
 
-        # Первоначальная активация и команда
-        activation_response = get_random_activation_response()
-        engine.say(activation_response)
-        engine.runAndWait()
-
         while True:
             command = get_command()
             if command:
+                if command in activation_words:  # Проверка на активационные слова
+                    greeting = random.choice(rick_greetings)  # Выбор случайного приветствия
+                    playsound(greeting, block=False)  # Неблокирующее воспроизведение приветствия
+                    continue
                 if command == "стоп команда":  # Проверка на стоп-команду
                     print("Завершение работы.")
                     break
