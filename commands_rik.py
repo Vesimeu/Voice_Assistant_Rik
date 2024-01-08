@@ -1,9 +1,9 @@
 # commands_rik.py
 import time
-
-from words import get_random_response
+import random
+from playsound import playsound
 import pyttsx3
-from words import get_random_response, get_random_execution_response
+from words import get_random_response, get_random_execution_response , how_are_you_responses , music_rik
 import webbrowser
 import threading
 import queue
@@ -28,19 +28,24 @@ def speak():
 
 def handle_command(command):
     engine = pyttsx3.init()
+    global main
     if command == "стоп команда":
         print("Завершение работы.")
-        sys.exit()  # Завершение программы
+        main()  # Завершение программы
     elif command.lower() == "открой браузер":
         response = open_browser()
+    elif command.lower() == "как дела":
+        response = random.choice(how_are_you_responses)  # Выбор случайного ответа
+        playsound(response, block=False)
+    elif command.lower() == "включи музыку":
+        print("Зашёл сюда")
+        playsound(music_rik, block=False)
     elif command.lower() == "неизвестная команда":
         response = "Извини, я не понял команду."
-    else:
-        response = get_random_response(command)
 
-    engine.say(response)
-    engine.runAndWait()
-    speech_queue.put(response)
+    # engine.say(response)
+    # engine.runAndWait()
+    # speech_queue.put(response)
 
 def main():
     # Запуск потока для произнесения фраз

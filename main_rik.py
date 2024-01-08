@@ -3,7 +3,6 @@ import pyttsx3
 import random
 import tkinter as tk
 from commands_rik import handle_command
-from words import get_random_activation_response
 import threading
 from PIL import Image, ImageTk
 from words import activation_words
@@ -76,9 +75,6 @@ def main():
                     greeting = random.choice(rick_greetings)  # Выбор случайного приветствия
                     playsound(greeting, block=False)  # Неблокирующее воспроизведение приветствия
                     continue
-                if command == "стоп команда":  # Проверка на стоп-команду
-                    print("Завершение работы.")
-                    break
                 handle_command(command)  # Обработка команды
             else:
                 print("Команда не распознана или отсутствует")
