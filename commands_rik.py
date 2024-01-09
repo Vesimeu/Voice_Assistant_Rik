@@ -7,7 +7,7 @@ from words import get_random_response, get_random_execution_response , how_are_y
 import webbrowser
 import threading
 import queue
-import sys
+import pygame
 
 
 
@@ -17,6 +17,13 @@ def open_browser():
 
 # Инициализация очереди
 speech_queue = queue.Queue()
+
+pygame.mixer.init()
+
+def play_sound(file_path):
+    """Функция для воспроизведения звука."""
+    pygame.mixer.music.load(file_path)
+    pygame.mixer.music.play()
 
 def speak():
     engine = pyttsx3.init()
@@ -36,10 +43,10 @@ def handle_command(command):
         response = open_browser()
     elif command.lower() == "как дела":
         response = random.choice(how_are_you_responses)  # Выбор случайного ответа
-        playsound(response, block=False)
+        play_sound(response)
     elif command.lower() == "включи музыку":
         print("Зашёл сюда")
-        playsound(music_rik, block=False)
+        play_sound(music_rik)
     elif command.lower() == "неизвестная команда":
         response = "Извини, я не понял команду."
 

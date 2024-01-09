@@ -1,8 +1,8 @@
 import speech_recognition as sr
 import pyttsx3
-import random
+import pygame
 import tkinter as tk
-from commands_rik import handle_command
+from commands_rik import handle_command , play_sound
 import threading
 from PIL import Image, ImageTk
 from words import activation_words
@@ -16,6 +16,7 @@ from words import rick_greetings  # Импортируем список прив
 def show_image():
     """ Отображает окно с изображением Рика поверх всех окон в правом нижнем углу """
     window = tk.Tk()
+    window.overrideredirect(True)
     window.title("Рик")
 
     # Загрузка и отображение изображения
@@ -55,7 +56,7 @@ def listen_for_activation():
             print(f"Распознано: {text}")
             if any(word.lower() in text for word in activation_words):
                 greeting = random.choice(rick_greetings)  # Выбор случайного приветствия
-                playsound(greeting, block=False)  # Неблокирующее воспроизведение приветствия
+                play_sound(greeting)  # Неблокирующее воспроизведение приветствия
                 return True
         except sr.UnknownValueError:
             print("Не удалось распознать речь")
@@ -73,7 +74,7 @@ def main():
             if command:
                 if command in activation_words:  # Проверка на активационные слова
                     greeting = random.choice(rick_greetings)  # Выбор случайного приветствия
-                    playsound(greeting, block=False)  # Неблокирующее воспроизведение приветствия
+                    play_sound(greeting)  # Неблокирующее воспроизведение приветствия
                     continue
                 handle_command(command)  # Обработка команды
             else:
