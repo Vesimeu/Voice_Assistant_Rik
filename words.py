@@ -29,8 +29,8 @@ music_rik = "value/music_rik.mp3"
 
 # Пути к аудиофайлам для команды "как дела"
 how_are_you_responses = [
-    "value/howareyou1.mp3",
-    "value/howareyou2.mp3"
+    "value/howareyou1.wav",
+    "value/howareyou2.wav"
 ]
 
 
